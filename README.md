@@ -13,3 +13,15 @@ Um projeto Flutter para criar um gerador de Cancelamento
 
 ## Screenshots
 
+<p align="center" float="left">
+  <img src="images/ios1.png" width="250" />
+  <img src="images/ios2.png" width="250" /> 
+  <img src="images/ios3.png" width="250" />
+</p>
+
+## Supported Platforms
+| Platforms| Suported |
+| ------------- | ---------|
+| Android| ✅|
+| iOS| ✅|
+| Web| ✅|
