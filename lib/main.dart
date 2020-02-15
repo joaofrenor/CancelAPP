@@ -1,4 +1,6 @@
+import 'package:cancelamento/models/cancelamento.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import './screen/home.dart';
 import './screen/result.dart';
 
@@ -8,17 +10,22 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Gerador de Cancelamento',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.red,
+    return MultiProvider(
+      providers: [
+        Provider<Cancelamento>(create: (_) => Cancelamento()),
+      ],
+      child: MaterialApp(
+        title: 'Gerador de Cancelamento',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.red,
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => HomeScreen(),
+          '/result': (context) => ResultScreen(),
+        },
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => HomeScreen(),
-        '/result': (context) => ResultScreen(),
-      },
     );
   }
 }

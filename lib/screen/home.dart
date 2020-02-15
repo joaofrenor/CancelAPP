@@ -1,11 +1,10 @@
 import 'package:cancelamento/components/float_button.dart';
-import 'package:cancelamento/controller.dart';
+import 'package:cancelamento/models/cancelamento.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
-  final controller = Controller();
-
   _input({context, onChanged, String Function() errorText}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,44 +50,42 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cancelamento = Provider.of<Cancelamento>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Gerador de Cancelamento'),
         backgroundColor: Colors.red[900],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Image(image: AssetImage('images/logo.png')),
-          SizedBox(
-            height: 20,
-          ),
-          Text(
-            'Quem será cancelado?',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Quem será cancelado?',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          Observer(
-            builder: (_) {
-              return _input(
-                context: context,
-                onChanged: controller.cancelamento.changeName,
-                errorText: controller.validateName,
-              );
-            },
-          ),
-          SizedBox(
-            height: 104,
-          ),
-        ],
+            Observer(
+              builder: (_) {
+                return _input(
+                  context: context,
+                  onChanged: cancelamento.changeName,
+                  errorText: cancelamento.validateName,
+                );
+              },
+            ),
+            SizedBox(
+              height: 104,
+            ),
+          ],
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Observer(builder: (_) {
         return FloatButton(() {
-          if (controller.isValid) Navigator.pushNamed(context, '/result');
+          if (cancelamento.isValid) Navigator.pushNamed(_, '/result');
         });
       }),
     );

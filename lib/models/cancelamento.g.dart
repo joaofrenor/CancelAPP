@@ -9,6 +9,17 @@ part of 'cancelamento.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$Cancelamento on _CancelamentoBase, Store {
+  Computed<bool> _$isValidComputed;
+
+  @override
+  bool get isValid =>
+      (_$isValidComputed ??= Computed<bool>(() => super.isValid)).value;
+  Computed<String> _$getNameComputed;
+
+  @override
+  String get getName =>
+      (_$getNameComputed ??= Computed<String>(() => super.getName)).value;
+
   final _$nameAtom = Atom(name: '_CancelamentoBase.name');
 
   @override
@@ -30,7 +41,7 @@ mixin _$Cancelamento on _CancelamentoBase, Store {
       ActionController(name: '_CancelamentoBase');
 
   @override
-  dynamic changeName(String newName) {
+  void changeName(String newName) {
     final _$actionInfo = _$_CancelamentoBaseActionController.startAction();
     try {
       return super.changeName(newName);
@@ -41,7 +52,8 @@ mixin _$Cancelamento on _CancelamentoBase, Store {
 
   @override
   String toString() {
-    final string = 'name: ${name.toString()}';
+    final string =
+        'name: ${name.toString()},isValid: ${isValid.toString()},getName: ${getName.toString()}';
     return '{$string}';
   }
 }
